@@ -34,3 +34,20 @@ const observer = new IntersectionObserver(entries => {
 
 document.querySelectorAll('.section, .hero-content, .skill-card, .project-card')
   .forEach(el => observer.observe(el));
+
+// Progress bar animasi saat masuk viewport
+const skillObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const fill = entry.target.querySelector('.skill-fill');
+      if (fill) {
+        setTimeout(() => {
+          fill.style.width = fill.dataset.width;
+        }, 200);
+      }
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.skill-item').forEach(el => skillObserver.observe(el));
